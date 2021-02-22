@@ -17,8 +17,8 @@ const app = Express();
 // Define configuration options
 const opts = {
   identity: {
-    username: "NekagCitation",
-    password: "oauth:25hi6o304wr562m66r5ebhwhfzzgyk"
+    username: "nekagcitation",
+    password: "oauth:1ju6g3a43p4cvzz93yx3b34ujbb28m"
   },
   channels: [
     channelName
@@ -33,7 +33,32 @@ async function connectionTwitch (){
     await client.connect();
 }
 
-connectionTwitch();
+connectionTwitch().then(()=>{
+  repeateSendMessage(2);
+});
+
+
+
+
+function repeateSendMessage(time){
+  const quoteList = (quotes.getSomeRandom(time+1));
+  quote = quoteList[0].quote;
+  movie = quoteList[0].movie;
+  console.log('Envoie message ',0, ` ${quote} ${movie} `);
+  client.say(channelName,` ${quote} - ${movie} `);
+  for (let i = 1; i <= time ; i++) {
+    setTimeout(()=>{
+      
+      quote = quoteList[i].quote;
+      movie = quoteList[i].movie;
+      console.log('Envoie message ',i, ` ${quote} ${movie} `);
+      client.say(channelName,` ${quote} - ${movie} `);
+    },config.get('timer')*i);
+    
+  }
+}
+
+
 
 
 app.get("/", (req,res)=>{
