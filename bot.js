@@ -6,9 +6,7 @@ const request = require('postman-request');
 const Express = require('express');
 const app = Express();
 
-const quoteList = (quotes.getSomeRandom(1));
-const quote = quoteList[0].quote;
-const movie = quoteList[0].movie;
+
 
 // request('https://imsdb.com/scripts/Star-Wars-Revenge-of-the-Sith.html', function (error, response, body) {
 //    // Print the HTML for the Google homepage.
@@ -39,6 +37,9 @@ connectionTwitch();
 
 
 app.get("/", (req,res)=>{
+    const quoteList = (quotes.getSomeRandom(1));
+    quote = quoteList[0].quote;
+    movie = quoteList[0].movie;
     client.say(channelName,`${quote} - ${movie}`);
     console.log(`${quote} - ${movie}`, `Envoyé sur le channel ${channelName}`)
     res.send(`${quote} - ${movie}`);
