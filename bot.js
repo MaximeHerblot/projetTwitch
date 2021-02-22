@@ -44,14 +44,14 @@ function repeateSendMessage(){
   quote = quoteList[0].quote;
   movie = quoteList[0].movie;
   console.log('Envoie message ',0, ` ${quote} ${movie} `);
-  // client.say(channelName,` ${quote} - ${movie} `);
+  client.say(channelName,` ${quote} - ${movie} `);
   for (let i = 1; i <= time ; i++) {
     setTimeout(()=>{
       
       quote = quoteList[i].quote;
       movie = quoteList[i].movie;
       console.log('Envoie message ',i, ` ${quote} ${movie} `);
-      // client.say(channelName,` ${quote} - ${movie} `);
+      client.say(channelName,` ${quote} - ${movie} `);
     },config.get('timer')*i);
     
   }
