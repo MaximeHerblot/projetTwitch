@@ -29,30 +29,32 @@ const opts = {
 // Connect to Twitch:
 
 const client = new tmi.client(opts);
+
 async function connectionTwitch (){
     await client.connect();
 }
 
 connectionTwitch().then(()=>{
+  
   repeateSendMessage();
 });
 
-const time = config.get('numberRepeatedMessage');
+const numberReapet = config.get('numberRepeatedMessage');
 
 function repeateSendMessage(){
-  const quoteList = (quotes.getSomeRandom(time+1));
+  const quoteList = (quotes.getSomeRandom(numberReapet+1));
   quote = quoteList[0].quote;
   movie = quoteList[0].movie;
   console.log('Envoie message ',0, ` ${quote} ${movie} `);
   client.say(channelName,` ${quote} - ${movie} `);
-  for (let i = 1; i <= time ; i++) {
+  for (let i = 1; i <= numberReapet ; i++) {
     setTimeout(()=>{
       
       quote = quoteList[i].quote;
       movie = quoteList[i].movie;
       console.log('Envoie message ',i, ` ${quote} ${movie} `);
       client.say(channelName,` ${quote} - ${movie} `);
-    },config.get('timer')*i);
+    },config.get('timer')*i*1000);
     
   }
 }
