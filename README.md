@@ -1,5 +1,17 @@
 # projetTwitch
 
 npm i
+go to https://twitchapps.com/tmi/ to take your oath token from twitch
 
-node index.js
+# On windows
+
+set TWITCHUSERNAME= The name of your bot
+set TWITCHPASSWORD= The token you receive from the link above 
+
+# On mac/ios
+
+export TWITCHUSERNAME= The name of your bot
+export TWITCHPASSWORD= The token you receive from the link above 
+
+node bot.js
+
