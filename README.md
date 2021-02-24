@@ -7,6 +7,7 @@ Prerequirements
 - node 
 
 npm i
+
 Go in config/default and on the channelName properties instead of gaken_ write your own channelName
 
 go to https://twitchapps.com/tmi/ to take your oath token from twitch
