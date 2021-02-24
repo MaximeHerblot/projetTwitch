@@ -5,6 +5,7 @@ const channelName = config.get('channelName');
 const request = require('postman-request');
 const Express = require('express');
 const app = Express();
+const username = (config.get('username'));
 
 
 
@@ -17,13 +18,14 @@ const app = Express();
 // Define configuration options
 const opts = {
   identity: {
-    username: "nekagcitation",
+    username: username,
     password: "oauth:1ju6g3a43p4cvzz93yx3b34ujbb28m"
   },
   channels: [
     channelName
   ]
 };
+
 
 // Create a client with our options
 // Connect to Twitch:
