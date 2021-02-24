@@ -6,6 +6,7 @@ const request = require('postman-request');
 const Express = require('express');
 const app = Express();
 const username = (config.get('username'));
+const password = (config.get('password'));
 
 
 
@@ -19,7 +20,7 @@ const username = (config.get('username'));
 const opts = {
   identity: {
     username: username,
-    password: "oauth:1ju6g3a43p4cvzz93yx3b34ujbb28m"
+    password: password
   },
   channels: [
     channelName
