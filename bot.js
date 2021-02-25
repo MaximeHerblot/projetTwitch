@@ -44,13 +44,12 @@ connectionTwitch().then(()=>{
 
 const numberReapet = config.get('numberRepeatedMessage');
 
+
+
 function repeateSendMessage(){
   const quoteList = (quotes.getSomeRandom(numberReapet+1));
-  quote = quoteList[0].quote;
-  movie = quoteList[0].movie;
-  console.log('Envoie message ',0, ` ${quote} ${movie} `);
-  client.say(channelName,` ${quote} - ${movie} `);
-  for (let i = 1; i <= numberReapet ; i++) {
+  
+  for (let i = 0; i <= numberReapet ; i++) {
     setTimeout(()=>{
       
       quote = quoteList[i].quote;
