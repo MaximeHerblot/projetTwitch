@@ -26,7 +26,7 @@ const opts = {
     channelName
   ]
 };
-
+const listClient = [];
 
 // Create a client with our options
 // Connect to Twitch:
@@ -35,12 +35,15 @@ const client = new tmi.client(opts);
 
 async function connectionTwitch (){
     await client.connect();
+    listClient.push([client,listClient.length+1]);
+    console.log(listClient)
 }
-
 connectionTwitch().then(()=>{
   
   repeateSendMessage();
 });
+
+
 
 const numberReapet = config.get('numberRepeatedMessage');
 
