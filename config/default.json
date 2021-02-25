@@ -1,5 +1,5 @@
 {
     "channelName": "gaken_",
-    "timer": 3600,
+    "timer": 5,
     "numberRepeatedMessage" : 10
 }
