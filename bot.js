@@ -3,8 +3,10 @@ const config = require('config');
 const quotes = require('popular-movie-quotes');
 const channelName = config.get('channelName');
 const request = require('postman-request');
-const Express = require('express');
-const app = Express();
+
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const username = (config.get('username'));
 const password = (config.get('password'));
 
@@ -17,39 +19,46 @@ const password = (config.get('password'));
 // });
 
 // Define configuration options
-const opts = {
-  identity: {
-    username: username,
-    password: password
-  },
-  channels: [
-    channelName
-  ]
-};
-const listClient = [];
 
+const listClient = {};
+const listChannel = [];
 // Create a client with our options
 // Connect to Twitch:
 
-const client = new tmi.client(opts);
 
-async function connectionTwitch (){
-    await client.connect();
-    listClient.push([client,listClient.length+1]);
-    console.log(listClient)
+
+function tmiClient(username,password,channelName){
+  const opts = {
+    identity: {
+      username: username,
+      password: password
+    },
+    channels: [
+      channelName
+    ]
+  };
+  return new tmi.client(opts);
 }
-connectionTwitch().then(()=>{
-  
-  repeateSendMessage();
-});
 
+
+async function connectionTwitchClient (channelName){
+    const client = tmiClient(username,password,channelName);
+    await client.connect();
+    listClient[`${channelName}`] =client;
+}
+
+connectionTwitchClient(channelName)
+  .then(()=>{repeateSendMessage(channelName)})
+  .catch(()=>{console.log("Le server n'a pas permit la connection")});
 
 
 const numberReapet = config.get('numberRepeatedMessage');
 
 
 
-function repeateSendMessage(){
+function repeateSendMessage(channelName){
+  let client = listClient[channelName];
+
   const quoteList = (quotes.getSomeRandom(numberReapet+1));
   
   for (let i = 0; i <= numberReapet ; i++) {
@@ -62,18 +71,13 @@ function repeateSendMessage(){
     },config.get('timer')*i*1000);
     
   }
-}
+};
 
 
 
 
 app.get("/", (req,res)=>{
-    const quoteList = (quotes.getSomeRandom(1));
-    quote = quoteList[0].quote;
-    movie = quoteList[0].movie;
-    client.say(channelName,`${quote} - ${movie}`);
-    console.log(`${quote} - ${movie}`, `Envoyé sur le channel ${channelName}`)
-    res.send(`${quote} - ${movie}`);
+
 })
 
-app.listen(3000);
+http.listen(3000);

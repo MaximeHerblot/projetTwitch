@@ -1,4 +1,5 @@
 {
     "username" : "TWITCHUSERNAME",
-    "password" : "TWITCHPASSWORD"
+    "password" : "TWITCHPASSWORD",
+    "channelName": "TWITCHCHANNEL"
 }
