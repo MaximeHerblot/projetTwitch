@@ -16,11 +16,11 @@ On windows
 
 - set TWITCHUSERNAME= The name of your bot
 - set TWITCHPASSWORD= The token you receive from the link above 
+- set TWITCHCHANNEL= The name of the channel you want to connect
 
 On mac/ios
 
-- export TWITCHUSERNAME= The name of your bot
-- export TWITCHPASSWORD= The token you receive from the link above 
+- Change SET to EXPORT
 
 Then 
 
