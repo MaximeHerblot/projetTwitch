@@ -21,11 +21,11 @@ const password = (config.get('password'));
 // Define configuration options
 
 const listClient = {};
-const listChannel = [];
 // Create a client with our options
 // Connect to Twitch:
 
 
+//Fonction pour retourné un client twitch
 
 function tmiClient(username,password,channelName){
   const opts = {
@@ -33,22 +33,21 @@ function tmiClient(username,password,channelName){
       username: username,
       password: password
     },
-    channels: [
-      channelName
-    ]
+    channels: channelName
   };
   return new tmi.client(opts);
 }
 
 
-async function connectionTwitchClient (channelName){
+async function connectionTwitchClient (username,password,channelName){
     const client = tmiClient(username,password,channelName);
     await client.connect();
-    listClient[`${channelName}`] =client;
+    listClient[`${username}`] =client;
+
 }
 
-connectionTwitchClient(channelName)
-  .then(()=>{repeateSendMessage(channelName)})
+connectionTwitchClient(username,password,[channelName])
+  .then(()=>{repeateSendMessage(channelName,username)})
   .catch(()=>{console.log("Le server n'a pas permit la connection")});
 
 
@@ -56,14 +55,14 @@ const numberReapet = config.get('numberRepeatedMessage');
 
 
 
-function repeateSendMessage(channelName){
-  let client = listClient[channelName];
+function repeateSendMessage(channelName,namebot){
+  
 
   const quoteList = (quotes.getSomeRandom(numberReapet+1));
   
   for (let i = 0; i <= numberReapet ; i++) {
     setTimeout(()=>{
-      
+      let client = listClient[namebot];
       quote = quoteList[i].quote;
       movie = quoteList[i].movie;
       console.log('Envoie message ',i, ` ${quote} ${movie} `);
